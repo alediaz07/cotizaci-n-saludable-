@@ -1,0 +1,6 @@
+{
+  "name": "NODIVA PRODUCTS — Cotización Centriz Mobility",
+  "description": "Propuesta gastronómica corporativa interactiva y cotización de catering para Centriz Mobility por NODIVA PRODUCTS S.A.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

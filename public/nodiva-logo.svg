@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="500" height="500" fill="none">
+  <!-- Outer Red Background Disk -->
+  <circle cx="250" cy="250" r="242" fill="#D11226" />
+
+  <!-- Concentric White Ring -->
+  <circle cx="250" cy="250" r="222" fill="none" stroke="#FFFFFF" stroke-width="9" />
+
+  <!-- "PK" Letters on Top -->
+  <text
+    x="250"
+    y="114"
+    text-anchor="middle"
+    fill="#FFFFFF"
+    font-family="'Montserrat', 'Arial Black', -apple-system, BlinkMacSystemFont, sans-serif"
+    font-weight="900"
+    font-size="88"
+    letter-spacing="3"
+  >PK</text>
+
+  <!-- Central White Circle -->
+  <circle cx="250" cy="256" r="141" fill="#FFFFFF" />
+
+  <!-- Red Rooster Comb / Crest Silhouette -->
+  <path
+    d="M 170 328
+       C 180 270, 225 240, 290 238
+       C 328 237, 350 252, 362 264
+       C 362 248, 352 234, 335 226
+       C 318 218, 325 170, 310 160
+       C 295 150, 280 172, 278 196
+       C 274 162, 268 134, 250 134
+       C 232 134, 228 170, 224 210
+       C 210 178, 178 162, 158 178
+       C 138 194, 152 226, 170 240
+       C 138 254, 148 302, 170 328 Z"
+    fill="#D11226"
+  />
+
+  <!-- Lower Right Eye / Head Element -->
+  <circle cx="298" cy="300" r="48" fill="#D11226" />
+  <circle cx="308" cy="290" r="20" fill="#FFFFFF" />
+
+  <!-- Arched "NODIVA" along Bottom Rim -->
+  <defs>
+    <path
+      id="bottomArcNodiva"
+      d="M 104 382 A 184 184 0 0 0 396 382"
+      fill="none"
+    />
+  </defs>
+  <text
+    fill="#FFFFFF"
+    font-family="'Montserrat', 'Arial Black', -apple-system, BlinkMacSystemFont, sans-serif"
+    font-weight="900"
+    font-size="62"
+    letter-spacing="6"
+  >
+    <textPath href="#bottomArcNodiva" startOffset="50%" text-anchor="middle">
+      NODIVA
+    </textPath>
+  </text>
+</svg>
