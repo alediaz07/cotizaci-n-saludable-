@@ -11,11 +11,14 @@ export const NodivaLogo: React.FC<NodivaLogoProps> = ({
   size = 48,
   showText = false,
 }) => {
+  const logoSrc = `${import.meta.env.BASE_URL}logo.png`;
+  const fallbackLogoSrc = `${import.meta.env.BASE_URL}nodiva-logo.svg`;
+
   return (
     <div className={`inline-flex items-center gap-3 ${className}`}>
       <div className="shrink-0">
         <img
-          src="/logo.png"
+          src={logoSrc}
           alt="Logo Oficial PK NODIVA PRODUCTS S.A."
           width={size}
           height={size}
@@ -24,7 +27,7 @@ export const NodivaLogo: React.FC<NodivaLogoProps> = ({
           onError={(e) => {
             const target = e.currentTarget;
             if (target.src.indexOf('nodiva-logo.svg') === -1) {
-              target.src = '/nodiva-logo.svg';
+              target.src = fallbackLogoSrc;
             }
           }}
         />
