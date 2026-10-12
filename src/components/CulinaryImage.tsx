@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import { Utensils, Coffee, Leaf, Sparkles, SunMedium, Flame } from 'lucide-react';
-import { saveMediaImage, getMediaImage, optimizeImage } from '../utils/imageStore';
 import option1BreakfastImg from '../assets/images/regenerated_image_1791845209206.jpg';
 import option1LunchImg from '../assets/images/regenerated_image_1791845706208.png';
 import option2BreakfastImg from '../assets/images/regenerated_image_1791845708435.png';
 import option2LunchImg from '../assets/images/regenerated_image_1791845710277.png';
 import option3BreakfastImg from '../assets/images/regenerated_image_1791845712023.png';
+import option3LunchImg from '../assets/images/option3-lunch.jpg';
 import option4BreakfastImg from '../assets/images/regenerated_image_1791845713655.png';
 import option4LunchImg from '../assets/images/regenerated_image_1791845715399.png';
 
@@ -36,7 +36,7 @@ const GASTRONOMY_SOURCES: Record<string, { breakfast: string; lunch: string; fal
   'opcion-03': {
     // Ejecutiva económica: Sándwich integral & Pasta con pollo
     breakfast: option3BreakfastImg,
-    lunch: 'https://images.unsplash.com/photo-1621996346565-e3d5d6281292?auto=format&fit=crop&w=800&q=80',
+    lunch: option3LunchImg,
     fallbackGradient: 'from-slate-950 via-zinc-900 to-red-950',
     icon: 'Utensils'
   },
@@ -56,75 +56,19 @@ export const CulinaryImage: React.FC<CulinaryImageProps> = ({
   className = '',
   alt
 }) => {
-  const storageKey = `culinary_img_${proposalCode}_${mealType}`;
-  const [customSrc, setCustomSrc] = useState<string | null>(null);
   const [hasError, setHasError] = useState(false);
-  const fileInputRef = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    let isMounted = true;
-    getMediaImage(storageKey).then((saved) => {
-      if (isMounted && saved) {
-        setCustomSrc(saved);
-      }
-    });
-
-    const handleUpdate = () => {
-      getMediaImage(storageKey).then((saved) => {
-        if (isMounted && saved) {
-          setCustomSrc(saved);
-        }
-      });
-    };
-
-    window.addEventListener('culinary_images_updated', handleUpdate);
-    return () => {
-      isMounted = false;
-      window.removeEventListener('culinary_images_updated', handleUpdate);
-    };
-  }, [storageKey]);
-
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = async (event) => {
-        const rawResult = event.target?.result as string;
-        if (rawResult) {
-          // Immediately show image in UI with zero delay
-          setCustomSrc(rawResult);
-          setHasError(false);
-
-          try {
-            const optimized = await optimizeImage(rawResult);
-            setCustomSrc(optimized);
-            await saveMediaImage(storageKey, optimized);
-          } catch (err) {
-            console.warn('Saving raw image fallback:', err);
-            await saveMediaImage(storageKey, rawResult);
-          }
-
-          window.dispatchEvent(new Event('culinary_images_updated'));
-        }
-      };
-      reader.readAsDataURL(file);
-    }
-  };
 
   const config = GASTRONOMY_SOURCES[proposalCode] || GASTRONOMY_SOURCES['opcion-01'];
   const baseSrc = mealType === 'breakfast' ? config.breakfast : config.lunch;
-  const currentSrc = customSrc || baseSrc;
 
   return (
     <div
-      onClick={() => fileInputRef.current?.click()}
-      className={`relative overflow-hidden bg-neutral-900 select-none group cursor-pointer ${className}`}
-      title="Haga clic para cambiar o asignar su archivo de imagen"
+      className={`relative overflow-hidden bg-neutral-900 select-none group ${className}`}
     >
       {/* Background image: directly visible */}
       {!hasError ? (
         <img
-          src={currentSrc}
+          src={baseSrc}
           alt={alt}
           referrerPolicy="no-referrer"
           loading="lazy"
@@ -151,16 +95,6 @@ export const CulinaryImage: React.FC<CulinaryImageProps> = ({
           </p>
         </div>
       )}
-
-      {/* Hidden file input to pick the downloaded image */}
-      <input
-        ref={fileInputRef}
-        type="file"
-        accept="image/*"
-        onChange={handleFileChange}
-        className="hidden"
-        aria-label={`Seleccionar imagen para ${title}`}
-      />
 
       {/* Scrim overlay for contrast */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent pointer-events-none" />

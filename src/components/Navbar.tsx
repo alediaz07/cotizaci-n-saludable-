@@ -52,7 +52,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenPdf }) => {
             href="#"
             className="flex items-center gap-2 sm:gap-2.5 shrink min-w-0 group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C8102E] rounded-lg"
           >
-            <NodivaLogo size={34} enableUploadOnClick={false} />
+            <NodivaLogo size={34} />
             <div className="flex flex-col min-w-0">
               <span
                 className={`font-heading font-extrabold text-sm sm:text-base lg:text-lg tracking-tight truncate transition-colors ${
