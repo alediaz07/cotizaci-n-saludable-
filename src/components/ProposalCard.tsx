@@ -139,7 +139,7 @@ export const ProposalCard: React.FC<ProposalCardProps> = ({
             <button
               onClick={(e) => {
                 e.stopPropagation();
-                const url = generateEmailUrl(proposal, "Allison Gonzalez", allergiesText);
+                const url = generateEmailUrl(proposal, allergiesText);
                 window.location.href = url;
               }}
               className="w-full py-2.5 px-3 rounded-xl font-bold text-xs text-white bg-[#C8102E] hover:bg-[#a60d25] shadow-md shadow-[#C8102E]/20 transition-all flex items-center justify-center gap-1.5 cursor-pointer active:scale-98"

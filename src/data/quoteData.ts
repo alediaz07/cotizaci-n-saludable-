@@ -199,46 +199,20 @@ export function formatColones(amount: number): string {
 
 export function generateEmailUrl(
   proposal: Proposal,
-  clientName: string = "Allison Gonzalez",
   allergiesNote?: string
 ): string {
-  const subject = `Confirmación de Cotización Catering — Centriz Mobility (${proposal.code} | ${proposal.name})`;
+  const subject = `Confirmación de propuesta — ${proposal.code}`;
   const allergiesSection = allergiesNote && allergiesNote.trim().length > 0
-    ? `\nALERGIAS ALIMENTARIAS REPORTADAS (POR TIEMPO DE COMIDA):\n${allergiesNote.trim()}\n`
-    : `\nALERGIAS ALIMENTARIAS:\nSin alergias reportadas previamente.\n`;
+    ? `\nAlergias alimentarias:\n${allergiesNote.trim()}\n`
+    : '';
 
   const body = `Estimado equipo comercial de NODIVA PRODUCTS S.A.,
 
-Mi nombre es ${clientName} de Centriz Mobility.
-Por medio del presente correo confirmo nuestro interés en contratar el servicio de catering corporativo con base en la cotización presentada:
-
-========================================
-PROPUESTA SELECCIONADA:
-${proposal.code} — ${proposal.name}
-${proposal.tagline}
-========================================
-
-DESGLOSE DEL SERVICIO (70 PERSONAS):
-• Desayunos (70 pax): ${proposal.breakfast.description}
-  Subtotal: ${formatColones(proposal.breakfast.totalPrice)}
-
-• Almuerzos con refresco (70 pax): ${proposal.lunch.description}
-  Subtotal: ${formatColones(proposal.lunch.totalPrice)}
-
-• MONTO TOTAL COTIZADO: ${formatColones(proposal.total)} (antes de impuestos)
-  (Incluye empaques individuales, utensilios desechables necesarios y transporte/entrega en Sabanilla)
+Deseamos confirmar la propuesta ${proposal.code} — ${proposal.name} para el evento de ${QUOTE_INFO.client}.
 ${allergiesSection}
-DATOS DEL EVENTO:
-• Empresa: ${QUOTE_INFO.client}
-• Contacto: ${clientName}
-• Fecha: ${QUOTE_INFO.eventDate}
-• Cantidad de asistentes: ${QUOTE_INFO.attendees} personas
-• Ubicación: ${QUOTE_INFO.location}
+Agradecemos nos indiquen los siguientes pasos para coordinar el servicio.
 
-Agradezco me puedan responder con los pasos correspondientes para coordinar la formalización y la logística del evento.
-
-Atentamente,
-${clientName}
+Saludos,
 ${QUOTE_INFO.client}`;
 
   return `mailto:${QUOTE_INFO.providerEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
